@@ -14,12 +14,6 @@ export async function registerSW() {
     inIframe ||
     h.startsWith("id-preview--") ||
     h.startsWith("preview--") ||
-    h === "lovableproject.com" ||
-    h.endsWith(".lovableproject.com") ||
-    h === "lovableproject-dev.com" ||
-    h.endsWith(".lovableproject-dev.com") ||
-    h === "beta.lovable.dev" ||
-    h.endsWith(".beta.lovable.dev") ||
     new URLSearchParams(location.search).get("sw") === "off";
 
   if (refused) {
