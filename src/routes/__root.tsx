@@ -8,7 +8,7 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect } from "react";
 
 import appCss from "../styles.css?url";
 import { AppShell } from "@/components/AppShell";
@@ -74,19 +74,30 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
-        rel: "stylesheet", // <--- تم إصلاحها وإضافة القيمة الصحيحة هنا
+        rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap",
       },
     ],
   }),
   component: RootComponent,
-  notFoundComponent: NotFoundComponent,
+  notFoundNotFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
 
-// استبدال الـ shellComponent بطريقة الـ RootDocument القياسية لتجنب مشاكل الـ SSR والـ Assets
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  // تفعيل تسجيل الـ Service Worker لضمان عمل التطبيق بدون إنترنت
+  useEffect(() => {
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/sw.js").catch((err) => {
+          console.error("Service Worker registration failed: ", err);
+        });
+      });
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <html lang="ar" dir="rtl">
