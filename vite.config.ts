@@ -1,23 +1,30 @@
 import { defineConfig } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { nitro } from "nitro/vite";
 import viteReact from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
   plugins: [
     tanstackStart(),
+    nitro(),
     viteReact(),
+
     VitePWA({
       strategies: "generateSW",
       registerType: "autoUpdate",
       injectRegister: null,
       manifest: false,
-      devOptions: { enabled: false },
+      devOptions: {
+        enabled: false,
+      },
       filename: "sw.js",
       workbox: {
         navigateFallback: "/",
         additionalManifestEntries: [{ url: "/", revision: null }],
-        globPatterns: ["**/*.{js,css,png,svg,ico,woff2,webmanifest,json}"],
+        globPatterns: [
+          "**/*.{js,css,png,svg,ico,woff2,webmanifest,json}",
+        ],
         runtimeCaching: [
           {
             urlPattern: ({ request, url }) =>
@@ -35,7 +42,9 @@ export default defineConfig({
             handler: "CacheFirst",
             options: {
               cacheName: "assets",
-              expiration: { maxEntries: 200 },
+              expiration: {
+                maxEntries: 200,
+              },
             },
           },
           {
@@ -43,7 +52,9 @@ export default defineConfig({
               url.origin === "https://fonts.googleapis.com" ||
               url.origin === "https://fonts.gstatic.com",
             handler: "StaleWhileRevalidate",
-            options: { cacheName: "fonts" },
+            options: {
+              cacheName: "fonts",
+            },
           },
         ],
       },
