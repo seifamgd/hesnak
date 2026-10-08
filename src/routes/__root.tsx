@@ -74,39 +74,33 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
-        rel: "stylesheet",
+        rel: "stylesheet", // <--- تم إصلاحها وإضافة القيمة الصحيحة هنا
         href: "https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap",
       },
     ],
   }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
 
-function RootShell({ children }: { children: ReactNode }) {
-  return (
-    <html lang="ar" dir="rtl">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
-
+// استبدال الـ shellComponent بطريقة الـ RootDocument القياسية لتجنب مشاكل الـ SSR والـ Assets
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
-      <AppShell>
-        <Outlet />
-      </AppShell>
-      <Toaster position="top-center" dir="rtl" />
+      <html lang="ar" dir="rtl">
+        <head>
+          <HeadContent />
+        </head>
+        <body>
+          <AppShell>
+            <Outlet />
+          </AppShell>
+          <Toaster position="top-center" dir="rtl" />
+          <Scripts />
+        </body>
+      </html>
     </QueryClientProvider>
   );
 }
