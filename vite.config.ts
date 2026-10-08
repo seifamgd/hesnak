@@ -15,8 +15,11 @@ export default defineConfig({
       devOptions: { enabled: false },
       filename: "sw.js",
       workbox: {
-        navigateFallback: null,
-        globPatterns: ["**/*.{js,css,png,svg,ico,woff2,webmanifest}"],
+        // اجعل الصفحة الرئيسية متاحة كـ App Shell حتى يمكن فتح التطبيق
+        // والتنقل داخله بدون إنترنت بعد أول زيارة ناجحة.
+        navigateFallback: "/",
+        additionalManifestEntries: [{ url: "/", revision: null }],
+        globPatterns: ["**/*.{js,css,png,svg,ico,woff2,webmanifest,json}"],
         runtimeCaching: [
           {
             urlPattern: ({ request, url }) =>
