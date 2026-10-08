@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite"; // <--- أضف هذا الاستيراد
+import tailwindcss from "@tailwindcss/vite";
 import { nitro } from "nitro/vite";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -9,16 +9,34 @@ export default defineConfig({
   plugins: [
     tanstackStart(),
     viteReact(),
-    tailwindcss(), // <--- أضف هذه الإضافة هنا لمعالجة ملفات Tailwind v4 بشكل صحيح
+    tailwindcss(),
     nitro({
       preset: "vercel",
     }),
     VitePWA({
-      // إعدادات الـ PWA الخاصة بك كما هي...
       strategies: "generateSW",
       registerType: "autoUpdate",
       injectRegister: null,
-      manifest: false,
+      manifest: {
+        name: "حصن المسلم - حصنك",
+        short_name: "حصنك",
+        description: "تطبيق حصن المسلم والأذكار",
+        theme_color: "#0f172a",
+        background_color: "#0f172a",
+        display: "standalone",
+        icons: [
+          {
+            src: "/icon-192.png",
+            sizes: "192x192",
+            type: "image/png"
+          },
+          {
+            src: "/icon-512.png",
+            sizes: "512x512",
+            type: "image/png"
+          }
+        ]
+      },
       devOptions: { enabled: false },
       filename: "sw.js",
       workbox: {
