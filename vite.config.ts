@@ -41,18 +41,25 @@ export default defineConfig({
       filename: "sw.js",
       workbox: {
         navigateFallback: "/",
+        navigateFallbackDenylist: [/^\/~oauth/],
         additionalManifestEntries: [{ url: "/", revision: null }],
         globPatterns: ["**/*.{js,css,png,svg,ico,woff2,webmanifest,json}"],
         runtimeCaching: [
           {
             urlPattern: ({ request, url }) =>
               request.mode === "navigate" && !url.pathname.startsWith("/~oauth"),
-            handler: "NetworkFirst",
-            options: { cacheName: "pages", networkTimeoutSeconds: 4 },
+            handler: "StaleWhileRevalidate",
+            options: { 
+              cacheName: "pages-cache",
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 30 * 24 * 60 * 60,
+              }
+            },
           },
           {
             urlPattern: ({ url, sameOrigin }) =>
-              sameOrigin && url.pathname.pathname?.startsWith("/assets/") || url.pathname.startsWith("/assets/"),
+              sameOrigin && (url.pathname.startsWith("/assets/") || url.pathname?.startsWith("/assets/")),
             handler: "CacheFirst",
             options: { cacheName: "assets", expiration: { maxEntries: 200 } },
           },
