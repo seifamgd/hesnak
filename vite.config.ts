@@ -1,17 +1,20 @@
 import { defineConfig } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite"; // <--- أضف هذا الاستيراد
 import { nitro } from "nitro/vite";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
   plugins: [
-    tanstackStart(), // <--- يجب أن يكون في البداية تماماً
-    viteReact(),     // <--- بعده مباشرة
+    tanstackStart(),
+    viteReact(),
+    tailwindcss(), // <--- أضف هذه الإضافة هنا لمعالجة ملفات Tailwind v4 بشكل صحيح
     nitro({
       preset: "vercel",
     }),
     VitePWA({
+      // إعدادات الـ PWA الخاصة بك كما هي...
       strategies: "generateSW",
       registerType: "autoUpdate",
       injectRegister: null,

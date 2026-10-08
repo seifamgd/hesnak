@@ -7,10 +7,10 @@ import { a as Heart, i as House, n as Settings, s as CircleDot } from "../_libs/
 import { n as startReminderLoop } from "./reminders-DRiVw26F.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { t as Toaster } from "../_libs/sonner.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-DZEBOpqR.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-DHLiM5kH.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-DlFIqMAd.css";
+var styles_default = "/assets/styles-xg1tkQcX.css";
 async function registerSW() {
 	if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;
 	const h = location.hostname;
