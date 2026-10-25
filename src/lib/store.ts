@@ -20,6 +20,7 @@ export type State = {
   last: { category: string; index: number } | null;
   tasbih: { count: number; total: number; target: number };
   lastNotified: Record<string, string>;
+  garden: Record<string, number>;
 };
 
 const today = () => new Date().toLocaleDateString("en-CA");
@@ -41,6 +42,7 @@ const DEFAULT: State = {
   last: null,
   tasbih: { count: 0, total: 0, target: 33 },
   lastNotified: {},
+  garden: {},
 };
 
 const KEY = "azkar-state-v1";
@@ -55,7 +57,7 @@ function load() {
     const raw = localStorage.getItem(KEY);
     if (raw) {
       const p = JSON.parse(raw);
-      state = { ...DEFAULT, ...p, settings: { ...DEFAULT.settings, ...p.settings }, tasbih: { ...DEFAULT.tasbih, ...p.tasbih } };
+      state = { ...DEFAULT, ...p, settings: { ...DEFAULT.settings, ...p.settings }, tasbih: { ...DEFAULT.tasbih, ...p.tasbih }, garden: { ...DEFAULT.garden, ...p.garden } };
     }
   } catch {
     /* ignore */

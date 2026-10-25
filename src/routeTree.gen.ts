@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TasbihRouteImport } from './routes/tasbih'
+import { Route as GardenRouteImport } from './routes/garden'
 import { Route as CategoryIdRouteImport } from './routes/category.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const TasbihRoute = TasbihRouteImport.update({
   path: '/tasbih',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GardenRoute = GardenRouteImport.update({
+  id: '/garden',
+  path: '/garden',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategoryIdRoute = CategoryIdRouteImport.update({
   id: '/category/$id',
   path: '/category/$id',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/favorites': typeof FavoritesRoute
   '/settings': typeof SettingsRoute
   '/tasbih': typeof TasbihRoute
+  '/garden': typeof GardenRoute
   '/category/$id': typeof CategoryIdRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/favorites': typeof FavoritesRoute
   '/settings': typeof SettingsRoute
   '/tasbih': typeof TasbihRoute
+  '/garden': typeof GardenRoute
   '/category/$id': typeof CategoryIdRoute
 }
 export interface FileRoutesById {
@@ -61,15 +69,16 @@ export interface FileRoutesById {
   '/favorites': typeof FavoritesRoute
   '/settings': typeof SettingsRoute
   '/tasbih': typeof TasbihRoute
+  '/garden': typeof GardenRoute
   '/category/$id': typeof CategoryIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/favorites' | '/settings' | '/tasbih' | '/category/$id'
+  fullPaths: '/' | '/favorites' | '/settings' | '/tasbih' | '/garden' | '/category/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/favorites' | '/settings' | '/tasbih' | '/category/$id'
+  to: '/' | '/favorites' | '/settings' | '/tasbih' | '/garden' | '/category/$id'
   id:
-    '__root__' | '/' | '/favorites' | '/settings' | '/tasbih' | '/category/$id'
+    '__root__' | '/' | '/favorites' | '/settings' | '/tasbih' | '/garden' | '/category/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +86,7 @@ export interface RootRouteChildren {
   FavoritesRoute: typeof FavoritesRoute
   SettingsRoute: typeof SettingsRoute
   TasbihRoute: typeof TasbihRoute
+  GardenRoute: typeof GardenRoute
   CategoryIdRoute: typeof CategoryIdRoute
 }
 
@@ -110,6 +120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TasbihRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/garden': {
+      id: '/garden'
+      path: '/garden'
+      fullPath: '/garden'
+      preLoaderRoute: typeof GardenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/category/$id': {
       id: '/category/$id'
       path: '/category/$id'
@@ -125,6 +142,7 @@ const rootRouteChildren: RootRouteChildren = {
   FavoritesRoute: FavoritesRoute,
   SettingsRoute: SettingsRoute,
   TasbihRoute: TasbihRoute,
+  GardenRoute: GardenRoute,
   CategoryIdRoute: CategoryIdRoute,
 }
 export const routeTree = rootRouteImport

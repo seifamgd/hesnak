@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { AZKAR, CATEGORIES, byCategory, getCategory } from "@/data/azkar";
 import { useAppState } from "@/lib/store";
 import { InstallBanner } from "@/components/InstallBanner";
+import { Sprout } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -55,6 +56,12 @@ function Index() {
           <span className="text-sm text-primary">الذكر {last.index + 1} ←</span>
         </Link>
       )}
+
+      <Link to="/garden" className="flex items-center gap-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 shadow-soft transition-transform active:scale-[0.98] dark:border-emerald-900 dark:bg-emerald-950/40">
+        <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-200"><Sprout className="h-8 w-8" /></span>
+        <span className="min-w-0 flex-1"><span className="block font-bold text-emerald-900 dark:text-emerald-100">حديقتي في حصنك 🌿</span><span className="mt-1 block text-sm text-emerald-800/80 dark:text-emerald-200/80">سجّل أذكارك وشوف حديقتك وهي بتكبر</span></span>
+        <span aria-hidden className="text-xl text-emerald-700">←</span>
+      </Link>
 
       <InstallBanner />
 

@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
-import { Home, Heart, Settings, CircleDot } from "lucide-react";
+import { Home, Heart, Settings, CircleDot, Sprout } from "lucide-react";
 import { useAppState } from "@/lib/store";
 import { startReminderLoop } from "@/lib/reminders";
 import { registerSW } from "@/lib/pwa";
@@ -8,6 +8,7 @@ import { registerSW } from "@/lib/pwa";
 const NAV = [
   { to: "/", label: "الرئيسية", Icon: Home },
   { to: "/tasbih", label: "التسبيح", Icon: CircleDot },
+  { to: "/garden", label: "حديقتي", Icon: Sprout },
   { to: "/favorites", label: "المفضلة", Icon: Heart },
   { to: "/settings", label: "الإعدادات", Icon: Settings },
 ] as const;
